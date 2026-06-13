@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kigenyi Erisa | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0d0f14;
+      --surface:   #141720;
+      --border:    #1f2433;
+      --accent:    #4fffb0;
+      --accent2:   #7b61ff;
+      --text:      #e8eaf0;
+      --muted:     #636a82;
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 { font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.4rem, 6vw, 4rem); }
+    h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+    h3 { font-size: 1.05rem; }
+    p  { color: #9aa0b8; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    .cursor::after {
+      content: '▋';
+      color: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,15,20,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* Hero */
+    #about {
+      padding: 100px 24px 80px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .hero-text { flex: 1; }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-name { color: var(--text); }
+    .hero-name span { color: var(--accent); }
+    .hero-sub {
+      margin-top: 20px;
+      max-width: 580px;
+      font-size: 1.1rem;
+      color: #7e879e;
+      line-height: 1.8;
+    }
+    .hero-cta-row { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0f14;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 12px 26px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(79,255,176,0.07);
+      border: 1px solid rgba(79,255,176,0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{box-shadow:0 0 0 0 rgba(79,255,176,0.4)}
+      50%{box-shadow:0 0 0 5px rgba(79,255,176,0)}
+    }
+
+    /* Hero photo */
+    .hero-photo {
+      flex-shrink: 0;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      text-align: center;
+      padding: 16px;
+    }
+    .hero-photo-placeholder svg { opacity: 0.35; }
+    .hero-photo-placeholder span {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title { color: var(--text); margin-bottom: 40px; }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+    .skill-icon { font-size: 1.4rem; margin-bottom: 12px; }
+    .skill-card h3 { color: var(--text); margin-bottom: 8px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      background: rgba(123,97,255,0.12);
+      color: var(--accent2);
+      border: 1px solid rgba(123,97,255,0.2);
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-category {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .project-card h3 { font-size: 1.1rem; color: var(--text); margin-bottom: 10px; }
+    .project-card p { font-size: 0.9rem; flex: 1; }
+    .project-footer { margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .ptag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      background: rgba(79,255,176,0.07);
+      color: var(--accent);
+      border: 1px solid rgba(79,255,176,0.15);
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    /* Connect */
+    #connect { text-align: center; }
+    .connect-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 60px 40px;
+    }
+    .connect-inner h2 { color: var(--text); margin-bottom: 14px; }
+    .connect-inner p { max-width: 480px; margin: 0 auto 36px; }
+    .connect-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .connect-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .connect-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+    .cb-linkedin { background: #0a66c2; color: #fff; }
+    .cb-medium   { background: #000; color: #fff; border: 1px solid #333; }
+    .cb-email    { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .cb-email:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    footer p { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+    footer span { color: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      #about { padding: 70px 24px 60px; }
+      .hero-inner { flex-direction: column-reverse; gap: 32px; }
+      .hero-photo { width: 160px; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#about" class="nav-logo">// Kigenyi Erisa</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#connect">Connect</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="about">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Computer Science Student · Developer · Builder</p>
+        <div class="status-pill"><span class="status-dot"></span> Open to internships &amp; collaborations</div>
+        <h1 class="hero-name">
+          Hi, I'm <span>Kigenyi Erisa</span><span class="cursor"></span>
+        </h1>
+        <p class="hero-sub">
+          I study Computer Science and build things that live at the crossroads of systems security, 3D engineering, and clean web interfaces. I care about how software actually works underneath — from the hardware layer up through the browser.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#connect" class="btn-primary">Get in Touch</a>
+          <a href="#projects" class="btn-ghost">View My Work</a>
+        </div>
+      </div>
+
+      <div class="hero-photo">
+        <img src="pp.jpeg" alt="Profile photo"
+          onerror="this.parentNode.innerHTML='<div class=\'hero-photo-placeholder\'><svg width=\'40\' height=\'40\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'8\' r=\'4\'/><path d=\'M4 20c0-4 3.6-7 8-7s8 3 8 7\'/></svg><span>Add your<br/>profile photo</span></div>'"
+        />
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <section id="skills">
+    <p class="section-label">What I work with</p>
+    <h2 class="section-title">Technical Toolbox</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-icon"></div>
+        <h3>Development &amp; OS</h3>
+        <p>Comfortable working in both Ubuntu Linux and Windows environments. I write shell scripts to automate repetitive workflows and understand core computer architecture — memory, processes, filesystems — well enough to debug deep.</p>
+        <div class="skill-tags">
+          <span class="tag">Ubuntu</span><span class="tag">Bash</span><span class="tag">Shell Scripting</span><span class="tag">Windows</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon"></div>
+        <h3>Web Development</h3>
+        <p>I build semantic, responsive interfaces from scratch — no heavy frameworks, just deliberate HTML structure and utility-first CSS. I focus on layouts that feel intentional and load fast.</p>
+        <div class="skill-tags">
+          <span class="tag">HTML5</span><span class="tag">CSS</span><span class="tag">Tailwind CSS</span><span class="tag">Responsive Design</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon"></div>
+        <h3>Design, Data &amp; Typesetting</h3>
+        <p>I model 3D mechanical assemblies in SolidWorks 2025, design relational database schemas with proper normalization, and typeset academic documents in LaTeX — the kind of tool discipline most CS students skip.</p>
+        <div class="skill-tags">
+          <span class="tag">SolidWorks 2025</span><span class="tag">RDBMS</span><span class="tag">LaTeX</span><span class="tag">CAD</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon"></div>
+        <h3>Security &amp; Game Dev</h3>
+        <p>I explore penetration testing methodologies in sandboxed environments, study network defense patterns, and experiment with interactive game loop architectures — both disciplines train you to think like an adversary.</p>
+        <div class="skill-tags">
+          <span class="tag">Pen Testing</span><span class="tag">Network Defense</span><span class="tag">Game Logic</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon"></div>
+        <h3>Hardware Systems</h3>
+        <p>I do bare-metal hardware work: sourcing components, component-level diagnostics on legacy motherboards, full system assembly, and troubleshooting without relying on vendor tools. Real machines, real stakes.</p>
+        <div class="skill-tags">
+          <span class="tag">Assembly</span><span class="tag">Diagnostics</span><span class="tag">Legacy HW</span><span class="tag">Motherboards</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon"></div>
+        <h3>Environment &amp; Productivity</h3>
+        <p>I run a tuned VS Code setup — custom keybindings, workspace configs, extension stacks — and integrate AI coding tools deliberately rather than uncritically. Shipping quality code faster is the goal, not outsourcing thought.</p>
+        <div class="skill-tags">
+          <span class="tag">VS Code</span><span class="tag">GitHub Copilot</span><span class="tag">Git</span><span class="tag">Workflow Optimization</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="projects">
+    <p class="section-label">Selected work</p>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <p class="project-category">Engineering &amp; 3D Modeling</p>
+        <h3>Mechanical Pulley System Design</h3>
+        <p>Designed and simulated a multi-component pulley assembly in SolidWorks 2025. The work involved precise geometric constraint modelling, eliminating shadow artifacts in rendered output, and validating component clearances. The goal was a manufacturable design, not just a pretty render.</p>
+        <div class="project-footer">
+          <span class="ptag">SolidWorks 2025</span>
+          <span class="ptag">CAD</span>
+          <span class="ptag">Mechanical Design</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">Academic Systems</p>
+        <h3>Technical Typesetting &amp; Research Documentation</h3>
+        <p>Produced structured academic submissions entirely in LaTeX — including tables, auto-generated lists of figures, properly formatted citation trees, and cross-reference indexes. Submitted to university library standards where formatting errors are returned. Zero returns.</p>
+        <div class="project-footer">
+          <span class="ptag">LaTeX</span>
+          <span class="ptag">Academic Writing</span>
+          <span class="ptag">Documentation</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">Systems &amp; Web</p>
+        <h3>This Portfolio</h3>
+        <p>Built this site from scratch — no frameworks, no templates. Just intentional HTML, hand-written CSS custom properties, and a deliberate design system. Hosted on GitHub Pages. The source is public if you want to see how it's made.</p>
+        <div class="project-footer">
+          <span class="ptag">HTML</span>
+          <span class="ptag">CSS</span>
+          <span class="ptag">GitHub Pages</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="connect">
+    <div class="connect-inner">
+      <h2>Let's Connect</h2>
+      <p>I'm open to internships, collaborative CS projects, hardware consulting, and technical writing work. Reach out on any of these platforms — I respond promptly.</p>
+      <div class="connect-links">
+        <a href="https://www.linkedin.com/in/kigenyi-emmanuel-erisa-961a01407/" target="_blank" rel="noopener" class="connect-btn cb-linkedin">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.35-1.85 3.59 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45C23.21 24 24 23.23 24 22.28V1.72C24 .77 23.21 0 22.22 0z"/></svg>
+          LinkedIn Profile
+        </a>
+        <a href="https://medium.com/@mstrerisa" target="_blank" rel="noopener" class="connect-btn cb-medium">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+          Medium
+        </a>
+        <a href="mailto:mstr.erisa@gmail.com" class="connect-btn cb-email">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Email Me
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 <span>Kigenyi Erisa</span> &nbsp;·&nbsp; Built with HTML &amp; CSS &nbsp;·&nbsp; Hosted on GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
